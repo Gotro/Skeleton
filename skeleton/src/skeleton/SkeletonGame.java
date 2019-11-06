@@ -116,7 +116,7 @@ public class SkeletonGame extends Game implements Scene{
 		player.draw();
 		
 		
-		boolean gamePaused = false;
+	/*	boolean gamePaused = false;
 		while(!Display.isCloseRequested()){
 
 			if(Game.ui.keyPressed(org.lwjgl.glfw.GLFW.GLFW_KEY_P) && !gamePaused) {
@@ -136,7 +136,7 @@ public class SkeletonGame extends Game implements Scene{
 		        }
 		    }
 		}
-		
+*/		
 		
 		
 		return this;
