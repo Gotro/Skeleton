@@ -52,7 +52,7 @@ public class SkeletonGame extends Game implements Scene{
 	{
 		// inherited from the Game class, this sets up the window and allows us to access
 		// Game.ui
-		initUI(640, 480, "DemoGame");
+		initUI(640, 480, "Skeleton Game");
 
 		// screen clear is black (this could go in drawFrame if you wanted it to change
 		glClearColor(.0f, .0f, .0f, .0f);
