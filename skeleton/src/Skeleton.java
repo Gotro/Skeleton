@@ -26,31 +26,6 @@ public class Skeleton{
 		game.gameLoop();
 	}
 
-
-/*boolean gamePaused = false;
-while(!Display.isCloseRequested()){
-
-	if(Keyboard.isKeyDown(Keyboard.KEY_P) && !gamePaused) {
-	    gamePaused = true;
-	} else if(Keyboard.isKeyDown(Keyboard.KEY_P) && gamePaused) {
-	    gamePaused = false;
-	}
-
-    if(gamePaused){
-        while(true){
-            System.out.println("Game paused.");
-            if(Keyboard.isKeyDown(Keyboard.KEY_P)){
-                gamePaused = false;
-                break;
-            }
-        }
-    }
-    //...game logic
-}
-}*/
-	
-
-	
 	
 	
 }
