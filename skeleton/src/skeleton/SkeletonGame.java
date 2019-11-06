@@ -115,6 +115,30 @@ public class SkeletonGame extends Game implements Scene{
 		// draw the player last so it will appear on top of targets
 		player.draw();
 		
+		
+		boolean gamePaused = false;
+		while(!Display.isCloseRequested()){
+
+			if(Game.ui.keyPressed(org.lwjgl.glfw.GLFW.GLFW_KEY_P) && !gamePaused) {
+			    gamePaused = true;
+			} else if(Game.ui.keyPressed(org.lwjgl.glfw.GLFW.GLFW_KEY_P) && gamePaused) {
+			    gamePaused = false;
+			}
+			
+		    if(gamePaused){
+		        while(true){
+		            System.out.println("Game paused.");
+		            if(Game.ui.keyPressed(org.lwjgl.glfw.GLFW.GLFW_KEY_P)){
+		                gamePaused = false;
+		                break;
+		                
+		            }
+		        }
+		    }
+		}
+		
+		
+		
 		return this;
 	}
 	
