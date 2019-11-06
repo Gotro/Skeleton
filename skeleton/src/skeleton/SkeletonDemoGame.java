@@ -18,6 +18,7 @@ import edu.utc.game.Game;
 import edu.utc.game.GameObject;
 import edu.utc.game.Scene;
 import edu.utc.game.SimpleMenu;
+import edu.utc.game.Sound;
 import edu.utc.game.XYPair;
 import edu.utc.game.SimpleMenu.SelectableText;
 public class SkeletonDemoGame extends Game implements Scene {
@@ -39,9 +40,16 @@ private static java.util.Random rand=new java.util.Random();
 		menu.addItem(new SimpleMenu.SelectableText(20, 60, 20, 20, "Exit", 1, 0, 0, 1, 1, 1), null);
 		menu.select(0);
 
+		
+		
+		
+		
 		game.setScene(menu);
 		game.gameLoop();
+		
 	}
+
+	
 
 	private boolean gotClick=false;
 	// DemoGame instance data
@@ -86,12 +94,15 @@ private static java.util.Random rand=new java.util.Random();
 
 	int time=0;
 	public Scene drawFrame(int delta) {
+		Sound theSound;
+		theSound=new Sound("res/sound.wav");
 		glClearColor(1f, 1f, 1f, 1f);
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT); // clear the framebuffer
 
 		if (Game.ui.mouseButtonIsPressed(0)&& time==0)
 		{
 			x++;
+			theSound.play();
 			System.out.println(x);
 			time=20;
 		}
