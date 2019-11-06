@@ -117,3 +117,25 @@ private static java.util.Random rand=new java.util.Random();
 	
 	
 }
+
+/*	boolean gamePaused = false;
+while(!Display.isCloseRequested()){
+
+	if(Game.ui.keyPressed(org.lwjgl.glfw.GLFW.GLFW_KEY_P) && !gamePaused) {
+	    gamePaused = true;
+	} else if(Game.ui.keyPressed(org.lwjgl.glfw.GLFW.GLFW_KEY_P) && gamePaused) {
+	    gamePaused = false;
+	}
+	
+    if(gamePaused){
+        while(true){
+            System.out.println("Game paused.");
+            if(Game.ui.keyPressed(org.lwjgl.glfw.GLFW.GLFW_KEY_P)){
+                gamePaused = false;
+                break;
+                
+            }
+        }
+    }
+}
+*/
