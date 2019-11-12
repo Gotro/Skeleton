@@ -19,6 +19,7 @@ import edu.utc.game.GameObject;
 import edu.utc.game.Scene;
 import edu.utc.game.SimpleMenu;
 import edu.utc.game.Sound;
+import edu.utc.game.Text;
 import edu.utc.game.XYPair;
 import edu.utc.game.SimpleMenu.SelectableText;
 public class SkeletonDemoGame extends Game implements Scene {
@@ -49,26 +50,27 @@ private static java.util.Random rand=new java.util.Random();
 		
 	}
 
-	
+	Text text;
 
+	ColorChangeText ctext;
 	private boolean gotClick=false;
 	// DemoGame instance data
 	
 	List<GameObject> targets;
-	int x =0;
-	
+	public int x =0;
+	public int y = 0;
 	public SkeletonDemoGame()
 	{
 		initUI(640,480,"Mouse Game");
-    	glClearColor(1.0f, 1.0f, 1.0f, 0.0f);
+    	//glClearColor(0.5f, 0.5f, 0.5f, 0.5f);
 
 		
 		// see also Game.ui.enableMouseCursor(false);
 		Game.ui.showMouseCursor(false);
-		GL11.glClearColor(1.0f, 1.0f, 1.0f, 0.0f);
-
-	
-		
+		//GL11.glClearColor(1.0f, 1.0f, 1.0f, 0.0f);
+		text = new Text(100,50, 30, 30, "0");
+		ctext = new ColorChangeText(100,150, 30, 30, "begin!");
+		text.setColor(1, 1, 1);
 		// I didn't want to hide this in the UI class just yet, since it's key to understanding how GLFW and callbacks work
 		// You might want to do something similar to this to detect keyboard or game controller events.
 		
@@ -91,14 +93,38 @@ private static java.util.Random rand=new java.util.Random();
 		
 	}
 	
-
+	int victory=0;
 	int time=0;
+	int time2=0;
+	int time4=0;
+	int time5=0;
+	int pauseTime=0;
+	int pause=0;
 	public Scene drawFrame(int delta) {
+		if(pause>0) {
+			glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT); // clear the framebuffer
+			//glClearColor(1.0f, 1.0f, 1.0f, 0.0f);
+			if (Game.ui.keyPressed(org.lwjgl.glfw.GLFW.GLFW_KEY_SPACE))
+			{
+				pause=0;
+			}
+			ctext = new ColorChangeText(100,150, 30, 30, "pause");
+			ctext.draw();
+			return this;
+		}
+		else {
 		Sound theSound;
 		theSound=new Sound("res/sound.wav");
-		glClearColor(1f, 1f, 1f, 1f);
+		
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT); // clear the framebuffer
-
+		//glClearColor(1.0f, 1.0f, 1.0f, 0.0f);
+		time5=time4;
+		text = new Text(100,50, 30, 30, "time: "+ Integer.toString(time5/35));
+		time4++;
+		text.draw();
+		ctext.draw();
+		ctext.update(delta);
+		time2++;
 		if (Game.ui.mouseButtonIsPressed(0)&& time==0)
 		{
 			x++;
@@ -106,16 +132,63 @@ private static java.util.Random rand=new java.util.Random();
 			System.out.println(x);
 			time=20;
 		}
+		
 		if(time>0) {
 		time--;
 		}
-	
+		if(time2>20) {
+			//System.out.println("time");
+			time2=0;
+		}
+		if(victory==0&& time2>19) {
+		ctext = new ColorChangeText(100,150, 30, 30, Integer.toString(x));
+		}
+		if(x>10) {
+			
+			
+			ctext = new ColorChangeText(100,150, 30, 30, "Victory");
+			System.out.println("victory");
+			x=0;
+			victory++;
+			
+		}
+		
+		if (Game.ui.keyPressed(org.lwjgl.glfw.GLFW.GLFW_KEY_SPACE))
+		{
+			pause++;
+		}
 		
 		return this;
+		}
 	}
 }
 				
 		
 	
 	
+<<<<<<< HEAD
+=======
+	
+	
+	private enum colorStates {TO_WHITE, TO_RED, TO_GREEN, TO_BLUE};
+
+	private class ColorChangeText extends Text
+    {
+        colorStates color = colorStates.TO_RED;
+        private boolean reddening = false;
+        public ColorChangeText(int x, int y, int w, int h, String text){
+            super(x,y,w,h, text);
+        }
+
+        public void update(int delta){
+        	this.color = colorStates.TO_RED;
+            
+            
+        }
+    }
+
+	
+	
+}
+>>>>>>> f33d07f9cfeceb24921923af26f99d0ed2dd5516
 
