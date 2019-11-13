@@ -187,8 +187,13 @@ private static java.util.Random rand=new java.util.Random();
 		return this;
 		}
 	}
+}
+				
+		
 	
 	
+<<<<<<< HEAD
+=======
 	
 	
 	private enum colorStates {TO_WHITE, TO_RED, TO_GREEN, TO_BLUE};
@@ -211,25 +216,5 @@ private static java.util.Random rand=new java.util.Random();
 	
 	
 }
+>>>>>>> f33d07f9cfeceb24921923af26f99d0ed2dd5516
 
-/*	boolean gamePaused = false;
-while(!Display.isCloseRequested()){
-
-	if(Game.ui.keyPressed(org.lwjgl.glfw.GLFW.GLFW_KEY_P) && !gamePaused) {
-	    gamePaused = true;
-	} else if(Game.ui.keyPressed(org.lwjgl.glfw.GLFW.GLFW_KEY_P) && gamePaused) {
-	    gamePaused = false;
-	}
-	
-    if(gamePaused){
-        while(true){
-            System.out.println("Game paused.");
-            if(Game.ui.keyPressed(org.lwjgl.glfw.GLFW.GLFW_KEY_P)){
-                gamePaused = false;
-                break;
-                
-            }
-        }
-    }
-}
-*/
