@@ -100,37 +100,54 @@ private static java.util.Random rand=new java.util.Random();
 	int time5=0;
 	int pauseTime=0;
 	int pause=0;
+	int pause2=0;
+	int pausetime=10;
+	int song1=0;
 	public Scene drawFrame(int delta) {
 		if(pause>0) {
 			glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT); // clear the framebuffer
 			//glClearColor(1.0f, 1.0f, 1.0f, 0.0f);
+			if(pausetime>0) {
+				pausetime--;
+				return this;
+			}
+			else {
 			if (Game.ui.keyPressed(org.lwjgl.glfw.GLFW.GLFW_KEY_SPACE))
 			{
+				pausetime=10;
 				pause=0;
 			}
+			
 			ctext = new ColorChangeText(100,150, 30, 30, "pause");
 			ctext.draw();
+			text.draw();
 			return this;
+			}
 		}
 		else {
 		Sound theSound;
+		
 		theSound=new Sound("res/sound.wav");
 		
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT); // clear the framebuffer
 		//glClearColor(1.0f, 1.0f, 1.0f, 0.0f);
 		time5=time4;
 		text = new Text(100,50, 30, 30, "time: "+ Integer.toString(time5/35));
+		if(x<10) {
 		time4++;
+		}
 		text.draw();
 		ctext.draw();
 		ctext.update(delta);
+		
 		time2++;
+		
 		if (Game.ui.mouseButtonIsPressed(0)&& time==0)
 		{
 			x++;
 			theSound.play();
 			System.out.println(x);
-			time=20;
+			time=10;
 		}
 		
 		if(time>0) {
@@ -147,17 +164,26 @@ private static java.util.Random rand=new java.util.Random();
 			
 			
 			ctext = new ColorChangeText(100,150, 30, 30, "Victory");
-			System.out.println("victory");
-			x=0;
+			//System.out.println("victory");
+			//x=0;
 			victory++;
+			if(song1==0) {
+			theSound=new Sound("res/Shogi.wav");
+			theSound.play();
+			song1++;
+			}
+			
 			
 		}
 		
-		if (Game.ui.keyPressed(org.lwjgl.glfw.GLFW.GLFW_KEY_SPACE))
+		if (Game.ui.keyPressed(org.lwjgl.glfw.GLFW.GLFW_KEY_SPACE) && pausetime==0)
 		{
-			pause++;
+			pause=10;
+			pausetime=10;
 		}
-		
+		if(pausetime>0) {
+			pausetime--;
+		}
 		return this;
 		}
 	}
