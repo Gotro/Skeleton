@@ -25,6 +25,8 @@ import edu.utc.game.SimpleMenu.SelectableText;
 public class SkeletonDemoGame extends Game implements Scene {
 private static java.util.Random rand=new java.util.Random();
 
+
+	static SkeletonDemoGame game;
 	
 	public static void main(String[] args)
 	{
@@ -33,7 +35,7 @@ private static java.util.Random rand=new java.util.Random();
 		// DemoGame game = new DemoGame();
 		// game.gameLoop();
 	
-		SkeletonDemoGame game=new SkeletonDemoGame();
+		game=new SkeletonDemoGame();
 		game.registerGlobalCallbacks();
 
 		SimpleMenu menu = new SimpleMenu();
@@ -42,8 +44,10 @@ private static java.util.Random rand=new java.util.Random();
 		menu.select(0);
 
 		
-		
-		
+		if(returnMenu==true) {
+			menu.select(0);
+			game.setScene(menu);
+		}
 		
 		game.setScene(menu);
 		game.gameLoop();
@@ -51,7 +55,7 @@ private static java.util.Random rand=new java.util.Random();
 	}
 
 	Text text;
-
+	static boolean returnMenu=false;
 	ColorChangeText ctext;
 	private boolean gotClick=false;
 	// DemoGame instance data
@@ -66,7 +70,7 @@ private static java.util.Random rand=new java.util.Random();
 
 		
 		// see also Game.ui.enableMouseCursor(false);
-		Game.ui.showMouseCursor(false);
+		Game.ui.showMouseCursor(true);
 		//GL11.glClearColor(1.0f, 1.0f, 1.0f, 0.0f);
 		text = new Text(100,50, 30, 30, "0");
 		ctext = new ColorChangeText(100,150, 30, 30, "begin!");
@@ -103,10 +107,14 @@ private static java.util.Random rand=new java.util.Random();
 	int pause2=0;
 	int pausetime=10;
 	int song1=0;
+	int backToMain=0;
+	
 	public Scene drawFrame(int delta) {
+		
 		if(pause>0) {
 			glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT); // clear the framebuffer
 			//glClearColor(1.0f, 1.0f, 1.0f, 0.0f);
+			
 			if(pausetime>0) {
 				pausetime--;
 				return this;
@@ -118,7 +126,24 @@ private static java.util.Random rand=new java.util.Random();
 				pause=0;
 			}
 			
-			ctext = new ColorChangeText(100,150, 30, 30, "pause");
+			if (Game.ui.keyPressed(org.lwjgl.glfw.GLFW.GLFW_KEY_Q) && pausetime==0)
+			{
+				backToMain++;
+			}
+			
+			if(backToMain!=0) {
+
+				
+				SimpleMenu menu = new SimpleMenu();
+				menu.addItem(new SimpleMenu.SelectableText(30,  30,  30,  30,  "play the Game", 1,  0,  0,  1,  1,  1), game);
+				menu.addItem(new SimpleMenu.SelectableText(30,  130,  30,  30,  "Exit", 1,  0,  0,  1,  1,  1), null);
+				menu.select(0);
+
+				backToMain = 0;
+				return menu;
+			}
+			
+			ctext = new ColorChangeText(100,150, 30, 30, "pause space to resume or q to return to menu");
 			ctext.draw();
 			text.draw();
 			return this;
@@ -163,7 +188,7 @@ private static java.util.Random rand=new java.util.Random();
 		if(x>10) {
 			
 			
-			ctext = new ColorChangeText(100,150, 30, 30, "Victory");
+			ctext = new ColorChangeText(100,150, 30, 30, "Victory, press q to main menu");
 			//System.out.println("victory");
 			//x=0;
 			victory++;
@@ -171,9 +196,37 @@ private static java.util.Random rand=new java.util.Random();
 			theSound=new Sound("res/Shogi.wav");
 			theSound.play();
 			song1++;
+			
+			
+			
 			}
 			
 			
+		}
+		if (Game.ui.keyPressed(org.lwjgl.glfw.GLFW.GLFW_KEY_Q) && x>10)
+		{
+			backToMain++;
+		}
+		
+		if(backToMain!=0) {
+			//returnMenu=true;
+			/*SkeletonDemoGame game=new SkeletonDemoGame();
+			game.registerGlobalCallbacks();
+
+			SimpleMenu menu = new SimpleMenu();
+			menu.addItem(new SimpleMenu.SelectableText(20, 20, 20, 20, "Launch Game", 1, 0, 0, 1, 1, 1), game);
+			menu.addItem(new SimpleMenu.SelectableText(20, 60, 20, 20, "Exit", 1, 0, 0, 1, 1, 1), null);
+			menu.select(0);
+
+			
+			
+			
+			game.setScene(menu);
+			game.gameLoop();*/
+			returnMenu=true;
+			backToMain=0;
+		
+			//return new SkeletonDemoGame;
 		}
 		
 		if (Game.ui.keyPressed(org.lwjgl.glfw.GLFW.GLFW_KEY_SPACE) && pausetime==0)
@@ -187,13 +240,8 @@ private static java.util.Random rand=new java.util.Random();
 		return this;
 		}
 	}
-}
-				
-		
 	
 	
-<<<<<<< HEAD
-=======
 	
 	
 	private enum colorStates {TO_WHITE, TO_RED, TO_GREEN, TO_BLUE};
@@ -207,14 +255,7 @@ private static java.util.Random rand=new java.util.Random();
         }
 
         public void update(int delta){
-        	this.color = colorStates.TO_RED;
-            
-            
+        	this.color = colorStates.TO_RED;  
         }
     }
-
-	
-	
 }
->>>>>>> f33d07f9cfeceb24921923af26f99d0ed2dd5516
-
